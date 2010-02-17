@@ -4,8 +4,14 @@
 TARGET = cadi
 TEMPLATE = app
 SOURCES += main.cpp \
-    cadi.cpp
-HEADERS += cadi.h
+    cadi.cpp \
+    distribution.cpp \
+    de.cpp \
+    hardware.cpp
+HEADERS += cadi.h \
+    distribution.h \
+    de.h \
+    hardware.h
 FORMS += cadi.ui
 OBJECTS_DIR = build
 MOC_DIR = build

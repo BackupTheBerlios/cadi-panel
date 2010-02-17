@@ -5,6 +5,8 @@
 #include <QIcon>
 #include <QFile>
 #include <QProcessEnvironment>
+//#include <KDE/KCModuleLoader>
+//#include <gconf/2/gconf/gconf.h>
 
 namespace Ui {
     class Cadi;
@@ -26,6 +28,8 @@ private:
 
 public slots:
     void setIconsByTheme();
+    void setByDistribution();
+    void setByDE();
 };
 
 #endif // CADI_H

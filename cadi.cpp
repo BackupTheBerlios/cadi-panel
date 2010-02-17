@@ -1,14 +1,22 @@
 #include "cadi.h"
 #include "ui_cadi.h"
+#include "distribution.h"
+#include "de.h"
+#include "hardware.h"
 
 Cadi::Cadi(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::Cadi)
 {
     ui->setupUi(this);
-    qDebug(distribution().toAscii());
-    qDebug(desktopEnviroment().toAscii());
+    qDebug(Distribution::name().toAscii());
+    qDebug(Distribution::version().toAscii());
+    qDebug(Distribution::codename().toAscii());
+    qDebug(DE::name().toAscii());
     setIconsByTheme();
+    setByDistribution();
+    setByDE();
+    //qDebug(Hardware::processor().first().toAscii());
 }
 
 Cadi::~Cadi()
@@ -28,62 +36,42 @@ void Cadi::changeEvent(QEvent *e)
     }
 }
 
-//Return the distribution in use
-QString Cadi::distribution()
-{
-    QFile *lsb_release = new QFile("/etc/lsb_release");
-    lsb_release->open(QIODevice::ReadOnly);
-    if (lsb_release->readAll().contains("Asturix"))
-    {
-        return "Asturix";
-    }
-    else if (lsb_release->readAll().contains("Kademar"))
-    {
-        return "Kademar";
-    }
-    else
-    {
-        return "other";
-    }
-    lsb_release->close();
-}
-
-//Return the desktop enviroment in use
-QString Cadi::desktopEnviroment()
-{
-    if (QProcessEnvironment::systemEnvironment().value("DESKTOP_SESSION", "").contains("kde"))
-    {
-        return "kde";
-    }
-    else if (QProcessEnvironment::systemEnvironment().value("DESKTOP_SESSION", "").contains("gnome"))
-    {
-        return "gnome";
-    }
-    else if (QProcessEnvironment::systemEnvironment().value("DESKTOP_SESSION", "").contains("lxde"))
-    {
-        return "lxde";
-    }
-    else if (QProcessEnvironment::systemEnvironment().value("DESKTOP_SESSION", "").contains("xfce"))
-    {
-        return "xfce";
-    }
-    else
-    {
-        return "other";
-    }
-}
-
 //Set the icons
 void Cadi::setIconsByTheme()
 {
-    if (distribution() == "Asturix")
+    #if QT_VERSION >= 0x040600
+        ui->tabWidget->setTabIcon(ui->tabWidget->indexOf(ui->softwareTab), QIcon::fromTheme("preferences-system"));
+        ui->tabWidget->setTabIcon(ui->tabWidget->indexOf(ui->hardwareTab), QIcon::fromTheme("preferences-desktop-peripherals"));
+        ui->updateButton->setIcon(QIcon::fromTheme("system-software-update"));
+    #else
+
+    #endif
+}
+
+//Set the app by the current distro
+void Cadi::setByDistribution()
+{
+    if (Distribution::name() == "Asturix")
     {
-        ui->tabWidget->setTabIcon(ui->tabWidget->indexOf(ui->softwareTab), QIcon(":/distributions/asturix.png"));
+        ui->tabWidget->setTabIcon(ui->tabWidget->indexOf(ui->generalTab), QIcon(":/asturix-icon"));
+        ui->distroLogoButton->setIcon(QIcon(":/asturix-icon").pixmap(128, 128));
     }
-    else if (distribution() == "Kademar")
+    else if (Distribution::name() == "Kademar")
     {
-        ui->tabWidget->setTabIcon(ui->tabWidget->indexOf(ui->softwareTab), QIcon(":/distributions/kademar.png"));
+        ui->tabWidget->setTabIcon(ui->tabWidget->indexOf(ui->generalTab), QIcon(":/kademar-icon"));
+        ui->distroLogoButton->setIcon(QIcon(":/kademar-icon"));
     }
-    ui->tabWidget->setTabIcon(ui->tabWidget->indexOf(ui->hardwareTab), QIcon::fromTheme("preferences-desktop-peripherals"));
-    ui->tabWidget->setTabIcon(ui->tabWidget->indexOf(ui->systemTab), QIcon::fromTheme("preferences-system"));
+    else if (Distribution::name() == "Ubuntu")
+    {
+        ui->tabWidget->setTabIcon(ui->tabWidget->indexOf(ui->generalTab), QIcon(":/ubuntu-icon"));
+        ui->distroLogoButton->setIcon(QIcon(":/ubuntu-icon"));
+    }
+    ui->distroNameLabel->setText("<h1>" + Distribution::name() + "</h1>" + " " + Distribution::version() + " " + Distribution::codename());
+    ui->kernelLabel->setText("<b>" + trUtf8("Linux Kernel") + "</b> " + Distribution::kernel());
+}
+
+//Set the app by the current desktop enviroment
+void Cadi::setByDE()
+{
+    ui->DELabel->setText("<b>" + DE::name() + "</b>" + " " + trUtf8("desktop enviroment"));
 }

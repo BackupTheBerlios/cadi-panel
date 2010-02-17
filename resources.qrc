@@ -1,1 +1,6 @@
-<RCC/>
+<RCC>
+    <qresource prefix="/">
+        <file alias="asturix-icon">resources/distributions/asturix-icon.png</file>
+        <file alias="ubuntu-icon">resources/distributions/ubuntu-icon.png</file>
+    </qresource>
+</RCC>
