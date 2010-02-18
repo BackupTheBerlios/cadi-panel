@@ -15,9 +15,9 @@ QString Distribution::name()
     {
         return "Asturix";
     }
-    else if (lsb_releaseContent->contains("Kademar"))
+    else if (lsb_releaseContent->contains("kademar"))
     {
-        return "Kademar";
+        return "kademar";
     }
     else if (lsb_releaseContent->contains("Ubuntu"))
     {

@@ -11,6 +11,12 @@ QString DE::name()
     #if QT_VERSION >= 0x040600
         if (QProcessEnvironment::systemEnvironment().value("DESKTOP_SESSION", "").contains("kde"))
         {
+            //KDE4 Support
+            return "KDE";
+        }
+        else if (QProcessEnvironment::systemEnvironment().indexOf("KDE_SESSION_UID"))
+        {
+            //KDE4 Support
             return "KDE";
         }
         else if (QProcessEnvironment::systemEnvironment().value("DESKTOP_SESSION", "").contains("gnome"))
@@ -32,6 +38,12 @@ QString DE::name()
     #else
         if (QProcess::systemEnvironment().contains("DESKTOP_SESSION=kde"))
         {
+            //KDE4 Support
+            return "KDE";
+        }
+        if (QProcess::systemEnvironment().indexOf("KDE_SESSION_UID"))
+        {
+            //KDE3 Support
             return "KDE";
         }
         else if (QProcess::systemEnvironment().contains("DESKTOP_SESSION=gnome"))

@@ -4,7 +4,11 @@
 #include <QMainWindow>
 #include <QIcon>
 #include <QFile>
-#include <QProcessEnvironment>
+#if QT_VERSION >= 0x040600
+    #include <QProcessEnvironment>
+#else
+    #include <QProcess>
+#endif
 //#include <KDE/KCModuleLoader>
 //#include <gconf/2/gconf/gconf.h>
 

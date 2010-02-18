@@ -56,7 +56,7 @@ void Cadi::setByDistribution()
         ui->tabWidget->setTabIcon(ui->tabWidget->indexOf(ui->generalTab), QIcon(":/asturix-icon"));
         ui->distroLogoButton->setIcon(QIcon(":/asturix-icon").pixmap(128, 128));
     }
-    else if (Distribution::name() == "Kademar")
+    else if (Distribution::name() == "kademar")
     {
         ui->tabWidget->setTabIcon(ui->tabWidget->indexOf(ui->generalTab), QIcon(":/kademar-icon"));
         ui->distroLogoButton->setIcon(QIcon(":/kademar-icon"));
