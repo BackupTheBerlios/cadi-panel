@@ -23,6 +23,9 @@ QString DE::name()
         {
             return "GNOME";
         }
+        else if (QProcessEnvironment::systemEnvironment().value("GNOME_KEYRING_PID", "").isEmpty() == false){
+            return "GNOME";
+        }
         else if (QProcessEnvironment::systemEnvironment().value("DESKTOP_SESSION", "").contains("lxde"))
         {
             return "LXDE";
@@ -41,13 +44,16 @@ QString DE::name()
             //KDE4 Support
             return "KDE";
         }
-        if (QProcess::systemEnvironment().indexOf("KDE_SESSION_UID"))
+        if (QProcess::systemEnvironment().indexOf("KDE_SESSION_UID") != -1)
         {
             //KDE3 Support
             return "KDE";
         }
         else if (QProcess::systemEnvironment().contains("DESKTOP_SESSION=gnome"))
         {
+            return "GNOME";
+        }
+        else if (QProcess::systemEnvironment().filter("GNOME_KEYRING_PID").isEmpty() == false){
             return "GNOME";
         }
         else if (QProcess::systemEnvironment().contains("DESKTOP_SESSION=lxde"))
