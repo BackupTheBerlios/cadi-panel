@@ -5,6 +5,7 @@
 
 class Distribution : public QObject
 {
+    Q_OBJECT
 public:
     Distribution();
     static QString name();
