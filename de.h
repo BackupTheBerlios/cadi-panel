@@ -5,6 +5,7 @@
 
 class DE : public QObject
 {
+    Q_OBJECT
 public:
     DE();
     static QString name();

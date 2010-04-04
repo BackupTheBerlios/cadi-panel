@@ -1,4 +1,3 @@
-#include "distribution.h"
 #include "cadi.h"
 
 Distribution::Distribution()

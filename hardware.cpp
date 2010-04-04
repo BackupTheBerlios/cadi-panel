@@ -1,4 +1,3 @@
-#include "hardware.h"
 #include "cadi.h"
 
 Hardware::Hardware()

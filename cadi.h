@@ -11,6 +11,14 @@
 #endif
 //#include <KDE/KCModuleLoader>
 //#include <gconf/2/gconf/gconf.h>
+#include "ui_cadi.h"
+#include "distribution.h"
+#include "de.h"
+#include "process.h"
+#include "hardware.h"
+#include "shellscripts.h"
+#include "ui_general.h"
+#include "ui_categories.h"
 
 namespace Ui {
     class Cadi;
@@ -21,19 +29,18 @@ class Cadi : public QMainWindow {
 public:
     Cadi(QWidget *parent = 0);
     ~Cadi();
-    QString distribution();
-    QString desktopEnviroment();
+    Ui::Cadi *ui;
+    Ui::GeneralModule *generalModule;
+    Ui::CategoriesModule *categoriesModule;
+
+public slots:
+    void setByDistribution();
+    void setByDE();
+    void setConnections();
+    void changeView();
 
 protected:
     void changeEvent(QEvent *e);
-
-private:
-    Ui::Cadi *ui;
-
-public slots:
-    void setIconsByTheme();
-    void setByDistribution();
-    void setByDE();
 };
 
 #endif // CADI_H

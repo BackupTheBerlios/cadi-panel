@@ -7,13 +7,20 @@ SOURCES += main.cpp \
     cadi.cpp \
     distribution.cpp \
     de.cpp \
-    hardware.cpp
+    hardware.cpp \
+    process.cpp \
+    shellscripts.cpp
 HEADERS += cadi.h \
     distribution.h \
     de.h \
-    hardware.h
-FORMS += cadi.ui
+    hardware.h \
+    process.h \
+    shellscripts.h
+FORMS += cadi.ui \
+    modules/categories.ui \
+    modules/general.ui
 OBJECTS_DIR = build
 MOC_DIR = build
 RCC_DIR = build
+UI_DIR = build
 RESOURCES += resources.qrc
