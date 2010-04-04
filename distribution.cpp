@@ -1,4 +1,6 @@
 #include "cadi.h"
+#include "shellscripts.h"
+#include "process.h"
 
 Distribution::Distribution()
 {
@@ -32,41 +34,24 @@ QString Distribution::name()
 //Return the version of the distribution in use
 QString Distribution::version()
 {
-    QProcess *distroVersion = new QProcess();
-    distroVersion->setProcessChannelMode(QProcess::MergedChannels);
-    distroVersion->start("lsb_release -s -r");
-    if (distroVersion->waitForFinished())
-    {
-        QString distroVersionString = QString(distroVersion->readAll());
-        return distroVersionString.trimmed();
-    }
-    distroVersion->close();
+	Process pro;
+
+	return pro.execShellProcess(ShellScripts::SS_LSB_RELEASE, ShellScripts::SS_LSB_RELEASE_VERSION);
 }
 
 //Return the codename of the distribution in use
 QString Distribution::codename()
 {
-    QProcess *distroCodename = new QProcess();
-    distroCodename->setProcessChannelMode(QProcess::MergedChannels);
-    distroCodename->start("lsb_release -s -c");
-    if (distroCodename->waitForFinished())
-    {
-        QString distroCodenameString = QString(distroCodename->readAll());
-        return distroCodenameString.trimmed();
-    }
-    distroCodename->close();
+	Process pro;
+
+	return pro.execShellProcess(ShellScripts::SS_LSB_RELEASE, ShellScripts::SS_LSB_RELEASE_CODENAME);
 }
 
 //Return the kernel version of the distribution in use
 QString Distribution::kernel()
 {
-    QProcess *distroKernel = new QProcess();
-    distroKernel->setProcessChannelMode(QProcess::MergedChannels);
-    distroKernel->start("uname -r -m");
-    if (distroKernel->waitForFinished())
-    {
-        QString distroKernelString = QString(distroKernel->readAll());
-        return distroKernelString.trimmed();
-    }
-    distroKernel->close();
+	QString distroKernelString;
+	Process pro;
+
+	return pro.execShellProcess(ShellScripts::SS_UNAME, ShellScripts::SS_UNAME_KERNEL_VERSION);
 }

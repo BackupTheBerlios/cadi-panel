@@ -5,19 +5,21 @@ ShellScripts::ShellScripts(){
 }
 
 ShellScripts::~ShellScripts(){
-    if (this->LSB_RELEASE != NULL){
-        delete this->LSB_RELEASE;
-    }
 }
 
-QString ShellScripts::getCommand(int idStruct, QString param){
+QString ShellScripts::getCommand(int idStruct, int idParam){
     QString command;
 
     switch(idStruct){
-         //_LSB_RELEASE
         case SS_LSB_RELEASE:
-            command = get_lsb_release(param);
+            command = get_lsb_release(idParam);
             break;
+        case SS_UNAME:
+            command = get_uname(idParam);
+            break;
+		case SS_PSTREE:
+			command = get_pstree(idParam);
+			break;
         default:
             break;
     }
@@ -26,15 +28,17 @@ QString ShellScripts::getCommand(int idStruct, QString param){
 }
 
 //Private functions
-QString ShellScripts::get_lsb_release(QString param){
+QString ShellScripts::get_lsb_release(int idParam){
     QString command, par;
 
     this->LSB_RELEASE = new _LSB_RELEASE();
+
     if (this->LSB_RELEASE->init() == true){
         command = this->LSB_RELEASE->name;
-        if (param.compare(this->LSB_RELEASE->LSB_CODENAME) == 0){
+
+		if (idParam == this->SS_LSB_RELEASE_CODENAME){
             par = this->LSB_RELEASE->param_codename;
-        } else if (param.compare(this->LSB_RELEASE->LSB_VERSION) == 0) {
+		} else if (idParam == this->SS_LSB_RELEASE_VERSION) {
             par = this->LSB_RELEASE->param_version;
         }
 
@@ -47,3 +51,48 @@ QString ShellScripts::get_lsb_release(QString param){
 
     return command;
 }
+
+QString ShellScripts::get_uname(int idParam){
+    QString command, par;
+
+    this->UNAME = new _UNAME();
+
+    if (this->UNAME->init() == true){
+        command = this->UNAME->name;
+
+		if (idParam == this->SS_UNAME_KERNEL_VERSION){
+            par = this->UNAME->param_kernel_version;
+        }
+
+		if (par.isEmpty() == false){
+            command += par;
+        } else {
+            command.clear();
+        }
+    }
+
+    return command;
+}
+
+QString ShellScripts::get_pstree(int idParam){
+	QString command, par;
+
+	this->PSTREE = new _PSTREE();
+
+	if (this->PSTREE->init() == true){
+		command = this->PSTREE->name;
+
+		if (idParam == this->SS_PSTREE_UTF8){
+			par = this->PSTREE->param_utf8;
+		}
+
+		if (par.isEmpty() == false){
+			command += par;
+		} else {
+			command.clear();
+		}
+	}
+
+	return command;
+}
+

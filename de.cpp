@@ -7,27 +7,29 @@ DE::DE()
 //Return the desktop enviroment in use
 QString DE::name()
 {
-    if (Process::isRunning(QString("ksmserver")))
+	Process pro;
+
+	if (pro.isRunning(QString("ksmserver")))
     {
         return "KDE";
     }
-    else if (Process::isRunning(QString("gnome-panel")))
+	else if (pro.isRunning(QString("gnome-panel")))
     {
         return "GNOME";
     }
-    else if (Process::isRunning(QString("lxpanel")))
+	else if (pro.isRunning(QString("lxpanel")))
     {
         return "LXDE";
     }
-    else if (Process::isRunning(QString("xfce-mcs-manage")))
+	else if (pro.isRunning(QString("xfce-mcs-manage")))
     {
         return "XFCE";
     }
-    else if (Process::isRunning(QString("enlightenment")))
+	else if (pro.isRunning(QString("enlightenment")))
     {
         return "Enlightenment";
     }
-    else if (Process::isRunning(QString("fluxbox")))
+	else if (pro.isRunning(QString("fluxbox")))
     {
         return "Fluxbox";
     }

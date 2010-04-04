@@ -4,12 +4,13 @@ Cadi::Cadi(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::Cadi)
 {
+	Process pro;
     ui->setupUi(this);
     setConnections();
     generalModule = new Ui::GeneralModule;
     categoriesModule = new Ui::CategoriesModule;
     categoriesModule->setupUi(ui->centralWidget);
-    if (Process::isRunning(QString("ubudsdaemon")))
+	if (pro.isRunning(QString("ubudsdaemon")))
     {
     qDebug("hoal");
     }
@@ -48,7 +49,7 @@ void Cadi::setByDE()
 
 void Cadi::setConnections()
 {
-    connect(ui->generalAction, SIGNAL(triggered()), this, SLOT(changeView()));
+	connect(ui->generalAction, SIGNAL(triggered()), this, SLOT(changeView()));
 }
 
 void Cadi::changeView()

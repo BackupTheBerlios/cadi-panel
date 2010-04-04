@@ -6,9 +6,16 @@
 
 class Process
 {
+private:
+    bool com;
+    void setCom(bool status);
+    bool isCommandSet();
+
 public:
     Process();
-    static bool isRunning(QString process);
+	bool isRunning(QString process);
+    QString execShellProcess(int id_struct, int idParam);
+    QString getShellCommand(int id_struct, int idParam);
 };
 
 #endif // PROCESS_H
