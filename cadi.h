@@ -11,14 +11,14 @@
 #endif
 //#include <KDE/KCModuleLoader>
 //#include <gconf/2/gconf/gconf.h>
-#include "ui_cadi.h"
+#include "build/ui_cadi.h"
 #include "distribution.h"
 #include "de.h"
 #include "process.h"
 #include "hardware.h"
 #include "shellscripts.h"
-#include "ui_general.h"
-#include "ui_categories.h"
+#include "build/ui_general.h"
+#include "build/ui_categories.h"
 
 namespace Ui {
     class Cadi;

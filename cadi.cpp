@@ -4,16 +4,12 @@ Cadi::Cadi(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::Cadi)
 {
-	Process pro;
+    Process pro;
     ui->setupUi(this);
     setConnections();
     generalModule = new Ui::GeneralModule;
     categoriesModule = new Ui::CategoriesModule;
     categoriesModule->setupUi(ui->centralWidget);
-	if (pro.isRunning(QString("ubudsdaemon")))
-    {
-    qDebug("hoal");
-    }
 }
 
 Cadi::~Cadi()
@@ -47,6 +43,7 @@ void Cadi::setByDE()
 	generalModule->DELabel->setText("<b>" + DE::name() + "</b>" + " " + trUtf8("Desktop Environment"));
 }
 
+//Set the connections between objects
 void Cadi::setConnections()
 {
 	connect(ui->generalAction, SIGNAL(triggered()), this, SLOT(changeView()));

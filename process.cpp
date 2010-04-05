@@ -36,11 +36,11 @@ QString Process::getShellCommand(int idStruct, int idParam = ShellScripts::SS_NO
     return command;
 }
 
-QString Process::getPipedShellCommand(int idStruct1, int idStruct2, int idParam1 = ShellScripts::SS_NO_PARAM, int idParam2 = ShellScripts::SS_NO_PARAM){
+QString Process::getPippedShellCommand(int idStruct1, int idStruct2, int idParam1 = ShellScripts::SS_NO_PARAM, int idParam2 = ShellScripts::SS_NO_PARAM){
 	QString command;
 	ShellScripts shsc;
 
-	command = shsc.getPipedCommand(idStruct1, idStruct2, idParam1, idParam2);
+        command = shsc.getPippedCommand(idStruct1, idStruct2, idParam1, idParam2);
 
 	if (command.isEmpty() == false){
 		this->setCom(true);
@@ -96,12 +96,12 @@ QStringList Process::execShellProcessList(int idStruct, int idParam = ShellScrip
 	return result;
 }
 
-QString Process::execPipedShellProcess(int idStruct1, int idParam1, int idStruct2, int idParam2){
+QString Process::execPippedShellProcess(int idStruct1, int idParam1, int idStruct2, int idParam2){
 	QString result, command;
 	QProcess pro;
 
 	//Get command
-	command = this->getPipedShellCommand(idStruct1, idStruct2, idParam1, idParam2);
+        command = this->getPippedShellCommand(idStruct1, idStruct2, idParam1, idParam2);
 	//Process command
 	if (this->isCommandSet() == true){
 		pro.setProcessChannelMode(QProcess::MergedChannels);
@@ -120,11 +120,11 @@ QString Process::execPipedShellProcess(int idStruct1, int idParam1, int idStruct
 	return result;
 }
 
-QStringList Process::execPipedShellProcessList(int idStruct1, int idParam1, int idStruct2, int idParam2){
+QStringList Process::execPippedShellProcessList(int idStruct1, int idParam1, int idStruct2, int idParam2){
 	QString res;
 	QStringList result;
 
-	res = execPipedShellProcess(idStruct1, idParam1, idStruct2, idParam2);
+        res = execPippedShellProcess(idStruct1, idParam1, idStruct2, idParam2);
 
 	if (res.isEmpty() == false){
 		res = res.trimmed();
@@ -137,6 +137,32 @@ QStringList Process::execPipedShellProcessList(int idStruct1, int idParam1, int 
 	}
 
 	return result;
+}
+
+//Kill the indicated process
+bool Process::kill(QString processName)
+{
+    if (isRunning(processName) == true)
+    {
+        QProcess *killall = new QProcess();
+        killall->start("killall " + processName);
+        if (killall->waitForFinished())
+        {
+            killall->close();
+            if (isRunning(processName) == false)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+    }
+    else
+    {
+        return false;
+    }
 }
 
 void Process::setCom(bool status){

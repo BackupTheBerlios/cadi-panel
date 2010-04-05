@@ -27,7 +27,7 @@ QString ShellScripts::getCommand(int idStruct, int idParam){
     return command;
 }
 
-QString ShellScripts::getPipedCommand(int idStruct1, int idStruct2, int idParam1 = ShellScripts::SS_NO_PARAM, int idParam2 = ShellScripts::SS_NO_PARAM){
+QString ShellScripts::getPippedCommand(int idStruct1, int idStruct2, int idParam1 = ShellScripts::SS_NO_PARAM, int idParam2 = ShellScripts::SS_NO_PARAM){
 	QString command1, command2;
 
 	command1 = getCommand(idStruct1, idParam1);

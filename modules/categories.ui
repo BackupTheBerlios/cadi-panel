@@ -86,7 +86,7 @@
              <bool>true</bool>
             </property>
             <property name="wordWrap">
-             <bool>false</bool>
+             <bool>true</bool>
             </property>
             <property name="selectionRectVisible">
              <bool>true</bool>
@@ -167,7 +167,13 @@
             <property name="viewMode">
              <enum>QListView::IconMode</enum>
             </property>
+            <property name="modelColumn">
+             <number>0</number>
+            </property>
             <property name="uniformItemSizes">
+             <bool>true</bool>
+            </property>
+            <property name="wordWrap">
              <bool>true</bool>
             </property>
             <item>

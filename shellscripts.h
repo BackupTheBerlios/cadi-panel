@@ -109,7 +109,7 @@ public:
     ShellScripts();
     ~ShellScripts();
     QString getCommand(int idStruct, int idParam = ShellScripts::SS_NO_PARAM);
-	QString getPipedCommand(int idStruct1, int idStruct2, int idParam1, int idParam2);
+        QString getPippedCommand(int idStruct1, int idStruct2, int idParam1, int idParam2);
 
 };
 
