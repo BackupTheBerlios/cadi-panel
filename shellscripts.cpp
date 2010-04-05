@@ -141,8 +141,24 @@ QString ShellScripts::get_grep(int idParam){
 	if (this->GREP->init() == true){
 		command = this->GREP->name;
 
-		if (idParam == this->SS_GREP_CPUMODELNAME){
-			par = this->GREP->param_cpumodelname;
+		switch(idParam){
+			case SS_GREP_CPUMODELNAME:
+				par = this->GREP->param_cpumodelname;
+				break;
+			case SS_GREP_MEMTOTAL:
+				par = this->GREP->param_meminfomemtotal;
+				break;
+			case SS_GREP_MEMFREE:
+				par = this->GREP->param_meminfomemfree;
+				break;
+			case SS_GREP_SWAPTOTAL:
+				par = this->GREP->param_meminfoswaptotal;
+				break;
+			case SS_GREP_SWAPFREE:
+				par = this->GREP->param_meminfoswapfree;
+				break;
+			default:
+				break;
 		}
 
 		if (par.isEmpty() == false){

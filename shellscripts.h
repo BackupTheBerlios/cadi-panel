@@ -60,11 +60,13 @@ private:
 	struct _CAT{
 		QString name;
 		QString param_cpuinfo;
+		QString param_meminfo;
 
 		inline bool init(){
 			bool ret = false;
 			this->name = "cat";
 			this->param_cpuinfo = " /proc/cpuinfo";
+			this->param_meminfo = " /proc/meminfo";
 			ret = true;
 			return ret;
 		}
@@ -76,11 +78,19 @@ private:
 	struct _GREP{
 		QString name;
 		QString param_cpumodelname;
+		QString param_meminfomemtotal;
+		QString param_meminfomemfree;
+		QString param_meminfoswaptotal;
+		QString param_meminfoswapfree;
 
 		inline bool init(){
 			bool ret = false;
 			this->name = "grep";
 			this->param_cpumodelname = " 'model name'";
+			this->param_meminfomemtotal = " 'MemTotal'";
+			this->param_meminfomemfree = " 'MemFree'";
+			this->param_meminfoswaptotal = " 'SwapTotal'";
+			this->param_meminfoswapfree = " 'SwapFree'";
 			ret = true;
 			return ret;
 		}
@@ -90,7 +100,8 @@ private:
 
 public:
 	enum SS_STRUCTS {SS_LSB_RELEASE = 1, SS_UNAME, SS_PSTREE, SS_CAT, SS_GREP};
-	enum SS_PARAM {SS_NO_PARAM = 0, SS_LSB_RELEASE_VERSION, SS_LSB_RELEASE_CODENAME, SS_UNAME_KERNEL_VERSION, SS_PSTREE_UTF8, SS_CAT_CPUINFO, SS_GREP_CPUMODELNAME};
+	enum SS_PARAM {SS_NO_PARAM = 0, SS_LSB_RELEASE_VERSION, SS_LSB_RELEASE_CODENAME, SS_UNAME_KERNEL_VERSION, SS_PSTREE_UTF8, SS_CAT_CPUINFO, SS_GREP_CPUMODELNAME,
+				   SS_CAT_MEMINFO, SS_GREP_MEMTOTAL, SS_GREP_MEMFREE, SS_GREP_SWAPTOTAL, SS_GREP_SWAPFREE};
 
 	static SS_STRUCTS ID;
     static SS_PARAM PAR;
