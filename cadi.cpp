@@ -44,7 +44,7 @@ void Cadi::setByDistribution()
 //Set the app by the current desktop enviroment
 void Cadi::setByDE()
 {
-    generalModule->DELabel->setText("<b>" + DE::name() + "</b>" + " " + trUtf8("desktop enviroment"));
+	generalModule->DELabel->setText("<b>" + DE::name() + "</b>" + " " + trUtf8("Desktop Environment"));
 }
 
 void Cadi::setConnections()

@@ -1,28 +1,17 @@
 #include "cadi.h"
+#include "shellscripts.h"
+#include "process.h"
 
 Hardware::Hardware()
 {
 }
 
-//TOFIX: Crash when executing this function
 QStringList Hardware::processor()
 {
-    QStringList *processors = new QStringList();
+	QStringList processors;
 
-    QProcess *cpuInfo = new QProcess();
-    cpuInfo->setProcessChannelMode(QProcess::MergedChannels);
-    cpuInfo->start("cat /proc/cpuinfo | grep 'model name'");
-    //system("cat /proc/cpuinfo | grep 'model name'");
-    if (cpuInfo->waitForFinished())
-    {
-        QString *cpuInfoString = new QString(cpuInfo->readAll());
-        qDebug(cpuInfoString->toAscii());
-        for (int i; i < cpuInfoString->count("\n"); i++)
-        {
-            processors->append(cpuInfo->readLine().right(cpuInfo->readLine().length() - 13));
-        }
-    }
-    cpuInfo->close();
+	Process pro;
+	processors = pro.execPipedShellProcessList(ShellScripts::SS_CAT, ShellScripts::SS_CAT_CPUINFO, ShellScripts::SS_GREP, ShellScripts::SS_GREP_CPUMODELNAME);
 
-    return *processors;
+	return processors;
 }

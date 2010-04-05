@@ -27,6 +27,21 @@ QString ShellScripts::getCommand(int idStruct, int idParam){
     return command;
 }
 
+QString ShellScripts::getPipedCommand(int idStruct1, int idStruct2, int idParam1 = ShellScripts::SS_NO_PARAM, int idParam2 = ShellScripts::SS_NO_PARAM){
+	QString command1, command2;
+
+	command1 = getCommand(idStruct1, idParam1);
+	command2 = getCommand(idStruct2, idParam2);
+
+	if (command1.isEmpty() == false && command2.isEmpty() == false){
+		command1 += " | " + command2;
+	} else {
+		command1.clear();
+	}
+
+	return command1;
+}
+
 //Private functions
 QString ShellScripts::get_lsb_release(int idParam){
     QString command, par;
@@ -95,4 +110,49 @@ QString ShellScripts::get_pstree(int idParam){
 
 	return command;
 }
+
+QString ShellScripts::get_cat(int idParam){
+	QString command, par;
+
+	this->CAT = new _CAT();
+
+	if (this->CAT->init() == true){
+		command = this->CAT->name;
+
+		if (idParam == this->SS_CAT_CPUINFO){
+			par = this->CAT->param_cpuinfo;
+		}
+
+		if (par.isEmpty() == false){
+			command += par;
+		} else {
+			command.clear();
+		}
+	}
+
+	return command;
+}
+
+QString ShellScripts::get_grep(int idParam){
+	QString command, par;
+
+	this->GREP = new _GREP();
+
+	if (this->GREP->init() == true){
+		command = this->GREP->name;
+
+		if (idParam == this->SS_GREP_CPUMODELNAME){
+			par = this->GREP->param_cpumodelname;
+		}
+
+		if (par.isEmpty() == false){
+			command += par;
+		} else {
+			command.clear();
+		}
+	}
+
+	return command;
+}
+
 

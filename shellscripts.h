@@ -40,7 +40,7 @@ private:
 
 	QString get_uname(int param);
 
-	//SCRIPT:: PSTREE
+	//SCRIPT: PSTREE
 	struct _PSTREE{
 		QString name;
 		QString param_utf8;
@@ -56,9 +56,41 @@ private:
 
 	QString get_pstree(int param);
 
+	//SCRIPT: CAT
+	struct _CAT{
+		QString name;
+		QString param_cpuinfo;
+
+		inline bool init(){
+			bool ret = false;
+			this->name = "cat";
+			this->param_cpuinfo = " /proc/cpuinfo";
+			ret = true;
+			return ret;
+		}
+	} *CAT;
+
+	QString get_cat(int param);
+
+	//SCRIPT: GREP
+	struct _GREP{
+		QString name;
+		QString param_cpumodelname;
+
+		inline bool init(){
+			bool ret = false;
+			this->name = "grep";
+			this->param_cpumodelname = " 'model name'";
+			ret = true;
+			return ret;
+		}
+	} *GREP;
+
+	QString get_grep(int param);
+
 public:
-	enum SS_STRUCTS {SS_LSB_RELEASE = 1, SS_UNAME, SS_PSTREE};
-	enum SS_PARAM {SS_NO_PARAM = 0, SS_LSB_RELEASE_VERSION, SS_LSB_RELEASE_CODENAME, SS_UNAME_KERNEL_VERSION, SS_PSTREE_UTF8};
+	enum SS_STRUCTS {SS_LSB_RELEASE = 1, SS_UNAME, SS_PSTREE, SS_CAT, SS_GREP};
+	enum SS_PARAM {SS_NO_PARAM = 0, SS_LSB_RELEASE_VERSION, SS_LSB_RELEASE_CODENAME, SS_UNAME_KERNEL_VERSION, SS_PSTREE_UTF8, SS_CAT_CPUINFO, SS_GREP_CPUMODELNAME};
 
 	static SS_STRUCTS ID;
     static SS_PARAM PAR;
@@ -66,6 +98,7 @@ public:
     ShellScripts();
     ~ShellScripts();
     QString getCommand(int idStruct, int idParam = ShellScripts::SS_NO_PARAM);
+	QString getPipedCommand(int idStruct1, int idStruct2, int idParam1, int idParam2);
 
 };
 
