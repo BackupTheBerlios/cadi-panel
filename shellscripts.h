@@ -33,6 +33,7 @@ public:
 	static QString PSTREE_UTF8;
 	static QString UNAME;
 	static QString UNAME_KERNELVERSION;
+	static QString KILLALL;
 
 
     ShellScripts();

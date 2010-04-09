@@ -81,6 +81,35 @@ QString Process::execShellProcess(QString idCommand, QString idParam = ShellScri
     return result;
 }
 
+QString Process::execShellProcessCustomParam(QString idCommand, QString custParam){
+	QString result, command;
+	QProcess *pro = NULL;
+
+	command = getShellCommand(idCommand, ShellScripts::SS_NO_PARAM);
+
+	if (this->isCommandSet() == true){
+		pro = new QProcess();
+		pro->setProcessChannelMode(QProcess::MergedChannels);
+		pro->start(command + " " + custParam);
+		if (pro->waitForFinished()) {
+			result = QString(pro->readAll());
+			//Trim
+			if (result != NULL && result.isEmpty() == false){
+				result = result.trimmed();
+			}
+		}
+		pro->close();
+		this->setCom(false);
+	}
+
+	//Free mem
+	if (pro != NULL){
+		delete pro;
+	}
+
+	return result;
+}
+
 QStringList Process::execShellProcessList(QString idCommand, QString idParam = ShellScripts::SS_NO_PARAM){
 	QString res;
 	QStringList result;
@@ -142,27 +171,15 @@ QStringList Process::execPippedShellProcessList(QString idCommand1, QString idPa
 //Kill the indicated process
 bool Process::kill(QString processName)
 {
+	bool ret = false;
+
     if (isRunning(processName) == true)
     {
-        QProcess *killall = new QProcess();
-        killall->start("killall " + processName);
-        if (killall->waitForFinished())
-        {
-            killall->close();
-            if (isRunning(processName) == false)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
+		execShellProcessCustomParam(ShellScripts::KILLALL, processName);
+		ret = true;
     }
-    else
-    {
-        return false;
-    }
+
+	return ret;
 }
 
 void Process::setCom(bool status){

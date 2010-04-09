@@ -1,7 +1,7 @@
 #include "shellscripts.h"
 
 //DEFINE STATIC VARIABLES
-QString SS_NO_PARAM = "";
+QString ShellScripts::SS_NO_PARAM = "";
 //Node and attribute names (shellscripts.xml file)
 QString ShellScripts::LSB_RELEASE = "LSB_RELEASE";
 QString ShellScripts::LSB_RELEASE_VERSION = "LSB_RELEASE_VERSION";
@@ -19,6 +19,7 @@ QString ShellScripts::PSTREE = "PSTREE";
 QString ShellScripts::PSTREE_UTF8 = "PSTREE_UTF8";
 QString ShellScripts::UNAME = "UNAME";
 QString ShellScripts::UNAME_KERNELVERSION = "UNAME_KERNELVERSION";
+QString ShellScripts::KILLALL = "KILLALL";
 
 
 //Public functions

@@ -52,4 +52,7 @@ Where:
     <name>uname</name>
     <par name="UNAME_KERNELVERSION">-rm</par>
   </UNAME>
+  <KILLALL>
+  		<name>killall</name>
+  </KILLALL>
 </ShellScripts>

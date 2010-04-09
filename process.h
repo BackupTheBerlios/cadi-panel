@@ -15,6 +15,7 @@ public:
     bool isRunning(QString process);
     bool kill(QString processName);
 	QString execShellProcess(QString id_struct, QString idParam);
+	QString execShellProcessCustomParam(QString idCommand, QString custParam);
 	QStringList execShellProcessList(QString idCommand, QString idParam);
 	QString execPippedShellProcess(QString idCommand1, QString idParam1, QString idCommand2, QString idParam2);
 	QStringList execPippedShellProcessList(QString idCommand1, QString idParam1, QString idCommand2, QString idParam2);
