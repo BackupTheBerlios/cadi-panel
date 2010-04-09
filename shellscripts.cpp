@@ -1,38 +1,117 @@
 #include "shellscripts.h"
 
+//DEFINE STATIC VARIABLES
+QString SS_NO_PARAM = "";
+//Node and attribute names (shellscripts.xml file)
+QString ShellScripts::LSB_RELEASE = "LSB_RELEASE";
+QString ShellScripts::LSB_RELEASE_VERSION = "LSB_RELEASE_VERSION";
+QString ShellScripts::LSB_RELEASE_CODENAME = "LSB_RELEASE_CODENAME";
+QString ShellScripts::GREP = "GREP";
+QString ShellScripts::GREP_MODELNAME = "GREP_MODELNAME";
+QString ShellScripts::GREP_MEMTOTAL = "GREP_MEMTOTAL";
+QString ShellScripts::GREP_MEMFREE = "GREP_MEMFREE";
+QString ShellScripts::GREP_SWAPTOTAL = "GREP_SWAPTOTAL";
+QString ShellScripts::GREP_SWAPFREE = "GREP_SWAPFREE";
+QString ShellScripts::CAT = "CAT";
+QString ShellScripts::CAT_CPUINFO = "CAT_CPUINFO";
+QString ShellScripts::CAT_MEMINFO = "CAT_MEMINFO";
+QString ShellScripts::PSTREE = "PSTREE";
+QString ShellScripts::PSTREE_UTF8 = "PSTREE_UTF8";
+QString ShellScripts::UNAME = "UNAME";
+QString ShellScripts::UNAME_KERNELVERSION = "UNAME_KERNELVERSION";
+
+
 //Public functions
 ShellScripts::ShellScripts(){
+	//XML file representing shell commands and arguments
+	this->ficXml = "data/shellscripts.xml";
+	//Required node names (shellscripts.xml file)
+	this->name = "name";
+	this->param = "par";
+	//Open shellscripts.xml file and create DOM document
+	QFile fic(ficXml);
+	if (fic.open(QIODevice::ReadOnly) == true){
+		this->doc.setContent(&fic);
+		fic.close();
+	}
 }
 
 ShellScripts::~ShellScripts(){
 }
 
-QString ShellScripts::getCommand(int idStruct, int idParam){
+//Gets a shell command (name + arguments) from the shellscripts.xml file
+QString ShellScripts::getCommand(QString idNode, QString idParam){
     QString command;
+	QDomNodeList nl;
+	QDomNode n, a;
+	QDomElement e;
+	QDomText t;
+	QTextStream out(stdout);
 
-    switch(idStruct){
-        case SS_LSB_RELEASE:
-            command = get_lsb_release(idParam);
-            break;
-        case SS_UNAME:
-            command = get_uname(idParam);
-            break;
-		case SS_PSTREE:
-			command = get_pstree(idParam);
-			break;
-        default:
-            break;
-    }
+	//Get the command node
+	if (idNode.isNull() == false && idNode.isEmpty() == false){
+		nl = this->doc.elementsByTagName(idNode);
+		if (nl.isEmpty() == false){
+			n = nl.item(0);
+		}
+
+		//Get the command name
+		if (n.isNull() == false){
+			//Get the node elements
+			e = n.toElement();
+			if (e.isNull() == false){
+				//Get the "name" node
+				nl = e.elementsByTagName(this->name);
+				if (nl.isEmpty() == false){
+					n = nl.item(0);
+					//Get the value of the node
+					command += n.firstChild().nodeValue();
+				}
+			}
+		}
+	}
+
+	//Get the param
+	if (command.isEmpty() == false && idParam.isNull() == false && idParam.isEmpty() == false){
+		if (e.isNull() == false){
+			//Get the "params" nodes
+			nl = e.elementsByTagName(this->param);
+			if (nl.isEmpty() == false){
+				for (int i = 0; i < nl.count(); ++i){
+					n = nl.item(i);
+					if (n.isNull() == false){
+						//Get the "name" attribute
+						if (n.hasAttributes() == true){
+							e = n.toElement();
+							QString atrName = e.attribute(this->name);
+							//is it the wanted param?
+							if (atrName.compare(idParam) == 0){
+								//Get the value of the node
+								if (n.firstChild().isText() == true){
+									command += " " + n.firstChild().nodeValue();
+									break;
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	}
 
     return command;
 }
 
-QString ShellScripts::getPippedCommand(int idStruct1, int idStruct2, int idParam1 = ShellScripts::SS_NO_PARAM, int idParam2 = ShellScripts::SS_NO_PARAM){
+//Gets two shell commands and pipes them
+QString ShellScripts::getPippedCommand(QString idCommand1, QString idCommand2, QString idParam1 = ShellScripts::SS_NO_PARAM, QString idParam2 = ShellScripts::SS_NO_PARAM){
 	QString command1, command2;
 
-	command1 = getCommand(idStruct1, idParam1);
-	command2 = getCommand(idStruct2, idParam2);
+	//Get first command
+	command1 = getCommand(idCommand1, idParam1);
+	//Get second command
+	command2 = getCommand(idCommand2, idParam2);
 
+	//Pipe them
 	if (command1.isEmpty() == false && command2.isEmpty() == false){
 		command1 += " | " + command2;
 	} else {
@@ -42,133 +121,5 @@ QString ShellScripts::getPippedCommand(int idStruct1, int idStruct2, int idParam
 	return command1;
 }
 
-//Private functions
-QString ShellScripts::get_lsb_release(int idParam){
-    QString command, par;
-
-    this->LSB_RELEASE = new _LSB_RELEASE();
-
-    if (this->LSB_RELEASE->init() == true){
-        command = this->LSB_RELEASE->name;
-
-		if (idParam == this->SS_LSB_RELEASE_CODENAME){
-            par = this->LSB_RELEASE->param_codename;
-		} else if (idParam == this->SS_LSB_RELEASE_VERSION) {
-            par = this->LSB_RELEASE->param_version;
-        }
-
-        if (par.isEmpty() == false){
-            command += par;
-        } else {
-            command.clear();
-        }
-    }
-
-    return command;
-}
-
-QString ShellScripts::get_uname(int idParam){
-    QString command, par;
-
-    this->UNAME = new _UNAME();
-
-    if (this->UNAME->init() == true){
-        command = this->UNAME->name;
-
-		if (idParam == this->SS_UNAME_KERNEL_VERSION){
-            par = this->UNAME->param_kernel_version;
-        }
-
-		if (par.isEmpty() == false){
-            command += par;
-        } else {
-            command.clear();
-        }
-    }
-
-    return command;
-}
-
-QString ShellScripts::get_pstree(int idParam){
-	QString command, par;
-
-	this->PSTREE = new _PSTREE();
-
-	if (this->PSTREE->init() == true){
-		command = this->PSTREE->name;
-
-		if (idParam == this->SS_PSTREE_UTF8){
-			par = this->PSTREE->param_utf8;
-		}
-
-		if (par.isEmpty() == false){
-			command += par;
-		} else {
-			command.clear();
-		}
-	}
-
-	return command;
-}
-
-QString ShellScripts::get_cat(int idParam){
-	QString command, par;
-
-	this->CAT = new _CAT();
-
-	if (this->CAT->init() == true){
-		command = this->CAT->name;
-
-		if (idParam == this->SS_CAT_CPUINFO){
-			par = this->CAT->param_cpuinfo;
-		}
-
-		if (par.isEmpty() == false){
-			command += par;
-		} else {
-			command.clear();
-		}
-	}
-
-	return command;
-}
-
-QString ShellScripts::get_grep(int idParam){
-	QString command, par;
-
-	this->GREP = new _GREP();
-
-	if (this->GREP->init() == true){
-		command = this->GREP->name;
-
-		switch(idParam){
-			case SS_GREP_CPUMODELNAME:
-				par = this->GREP->param_cpumodelname;
-				break;
-			case SS_GREP_MEMTOTAL:
-				par = this->GREP->param_meminfomemtotal;
-				break;
-			case SS_GREP_MEMFREE:
-				par = this->GREP->param_meminfomemfree;
-				break;
-			case SS_GREP_SWAPTOTAL:
-				par = this->GREP->param_meminfoswaptotal;
-				break;
-			case SS_GREP_SWAPFREE:
-				par = this->GREP->param_meminfoswapfree;
-				break;
-			default:
-				break;
-		}
-
-		if (par.isEmpty() == false){
-			command += par;
-		} else {
-			command.clear();
-		}
-	}
-
-	return command;
-}
 
 

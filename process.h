@@ -14,12 +14,12 @@ public:
     Process();
     bool isRunning(QString process);
     bool kill(QString processName);
-    QString execShellProcess(int id_struct, int idParam);
-    QStringList execShellProcessList(int idStruct, int idParam);
-    QString execPippedShellProcess(int idStruct1, int idStruct2, int idParam1, int idParam2);
-    QStringList execPippedShellProcessList(int idStruct1, int idStruct2, int idParam1, int idParam2);
-    QString getShellCommand(int id_struct, int idParam);
-    QString getPippedShellCommand(int idStruct1, int idStruct2, int idParam1, int idParam2);
+	QString execShellProcess(QString id_struct, QString idParam);
+	QStringList execShellProcessList(QString idCommand, QString idParam);
+	QString execPippedShellProcess(QString idCommand1, QString idParam1, QString idCommand2, QString idParam2);
+	QStringList execPippedShellProcessList(QString idCommand1, QString idParam1, QString idCommand2, QString idParam2);
+	QString getShellCommand(QString id_struct, QString idParam);
+	QString getPippedShellCommand(QString idCommand1, QString idParam1, QString idCommand2, QString idParam2);
 };
 
 #endif // PROCESS_H

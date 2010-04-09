@@ -9,7 +9,7 @@ Process::Process()
 bool Process::isRunning(QString processName)
 {
 	QString processes;
-	processes = this->execShellProcess(ShellScripts::SS_PSTREE, ShellScripts::SS_PSTREE_UTF8);
+	processes = this->execShellProcess(ShellScripts::PSTREE, ShellScripts::PSTREE_UTF8);
 
 	if (processes.contains(processName) == true)
 	{
@@ -21,11 +21,11 @@ bool Process::isRunning(QString processName)
 	}
 }
 
-QString Process::getShellCommand(int idStruct, int idParam = ShellScripts::SS_NO_PARAM){
+QString Process::getShellCommand(QString idCommand, QString idParam = ShellScripts::SS_NO_PARAM){
     QString command;
     ShellScripts shsc;
 
-    command = shsc.getCommand(idStruct, idParam);
+	command = shsc.getCommand(idCommand, idParam);
 
 	if (command.isEmpty() == false){
         this->setCom(true);
@@ -36,11 +36,11 @@ QString Process::getShellCommand(int idStruct, int idParam = ShellScripts::SS_NO
     return command;
 }
 
-QString Process::getPippedShellCommand(int idStruct1, int idStruct2, int idParam1 = ShellScripts::SS_NO_PARAM, int idParam2 = ShellScripts::SS_NO_PARAM){
+QString Process::getPippedShellCommand(QString idCommand1, QString idParam1, QString idCommand2, QString idParam2){
 	QString command;
 	ShellScripts shsc;
 
-        command = shsc.getPippedCommand(idStruct1, idStruct2, idParam1, idParam2);
+	command = shsc.getPippedCommand(idCommand1, idCommand2, idParam1, idParam2);
 
 	if (command.isEmpty() == false){
 		this->setCom(true);
@@ -51,12 +51,12 @@ QString Process::getPippedShellCommand(int idStruct1, int idStruct2, int idParam
 	return command;
 }
 
-QString Process::execShellProcess(int idStruct, int idParam = ShellScripts::SS_NO_PARAM){
+QString Process::execShellProcess(QString idCommand, QString idParam = ShellScripts::SS_NO_PARAM){
     QString result, command;
     QProcess *pro = NULL;
 
     //Get command
-	command = this->getShellCommand(idStruct, idParam);
+	command = this->getShellCommand(idCommand, idParam);
     //Process command
     if (this->isCommandSet() == true){
         pro = new QProcess();
@@ -81,11 +81,11 @@ QString Process::execShellProcess(int idStruct, int idParam = ShellScripts::SS_N
     return result;
 }
 
-QStringList Process::execShellProcessList(int idStruct, int idParam = ShellScripts::SS_NO_PARAM){
+QStringList Process::execShellProcessList(QString idCommand, QString idParam = ShellScripts::SS_NO_PARAM){
 	QString res;
 	QStringList result;
 
-	res = execShellProcess(idStruct, idParam);
+	res = execShellProcess(idCommand, idParam);
 
 	if (res.contains("\n") == true){
 		result = res.split("\n", QString::SkipEmptyParts);
@@ -96,12 +96,12 @@ QStringList Process::execShellProcessList(int idStruct, int idParam = ShellScrip
 	return result;
 }
 
-QString Process::execPippedShellProcess(int idStruct1, int idParam1, int idStruct2, int idParam2){
+QString Process::execPippedShellProcess(QString idCommand1, QString idParam1, QString idCommand2, QString idParam2){
 	QString result, command;
 	QProcess pro;
 
 	//Get command
-        command = this->getPippedShellCommand(idStruct1, idStruct2, idParam1, idParam2);
+	command = this->getPippedShellCommand(idCommand1, idParam1, idCommand2, idParam2);
 	//Process command
 	if (this->isCommandSet() == true){
 		pro.setProcessChannelMode(QProcess::MergedChannels);
@@ -120,11 +120,11 @@ QString Process::execPippedShellProcess(int idStruct1, int idParam1, int idStruc
 	return result;
 }
 
-QStringList Process::execPippedShellProcessList(int idStruct1, int idParam1, int idStruct2, int idParam2){
+QStringList Process::execPippedShellProcessList(QString idCommand1, QString idParam1, QString idCommand2, QString idParam2){
 	QString res;
 	QStringList result;
 
-        res = execPippedShellProcess(idStruct1, idParam1, idStruct2, idParam2);
+	res = execPippedShellProcess(idCommand1, idParam1, idCommand2, idParam2);
 
 	if (res.isEmpty() == false){
 		res = res.trimmed();

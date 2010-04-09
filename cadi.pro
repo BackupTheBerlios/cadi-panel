@@ -24,3 +24,4 @@ MOC_DIR = build
 RCC_DIR = build
 UI_DIR = build
 RESOURCES += resources.qrc
+QT += xml

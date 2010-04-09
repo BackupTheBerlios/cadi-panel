@@ -11,7 +11,7 @@ QStringList Hardware::processor()
 	QStringList processors;
 	Process pro;
 
-        processors = pro.execPippedShellProcessList(ShellScripts::SS_CAT, ShellScripts::SS_CAT_CPUINFO, ShellScripts::SS_GREP, ShellScripts::SS_GREP_CPUMODELNAME);
+	processors = pro.execPippedShellProcessList(ShellScripts::CAT, ShellScripts::CAT_CPUINFO, ShellScripts::GREP, ShellScripts::GREP_MODELNAME);
 
 	return processors;
 }
@@ -22,22 +22,22 @@ QStringList Hardware::memory(){
 	Process pro;
 
 	//TOTAL MEMORY
-        result = pro.execPippedShellProcess(ShellScripts::SS_CAT, ShellScripts::SS_CAT_MEMINFO, ShellScripts::SS_GREP, ShellScripts::SS_GREP_MEMTOTAL);
+	result = pro.execPippedShellProcess(ShellScripts::CAT, ShellScripts::CAT_MEMINFO, ShellScripts::GREP, ShellScripts::GREP_MEMTOTAL);
 	aux = result.split(" ", QString::SkipEmptyParts);
 	mem.append(aux.at(1) + aux.at(2));
 
 	//FREE MEMORY
-        result = pro.execPippedShellProcess(ShellScripts::SS_CAT, ShellScripts::SS_CAT_MEMINFO, ShellScripts::SS_GREP, ShellScripts::SS_GREP_MEMFREE);
+	result = pro.execPippedShellProcess(ShellScripts::CAT, ShellScripts::CAT_MEMINFO, ShellScripts::GREP, ShellScripts::GREP_MEMFREE);
 	aux = result.split(" ", QString::SkipEmptyParts);
 	mem.append(aux.at(1) + aux.at(2));
 
 	//TOTAL SWAP
-        result = pro.execPippedShellProcess(ShellScripts::SS_CAT, ShellScripts::SS_CAT_MEMINFO, ShellScripts::SS_GREP, ShellScripts::SS_GREP_SWAPTOTAL);
+	result = pro.execPippedShellProcess(ShellScripts::CAT, ShellScripts::CAT_MEMINFO, ShellScripts::GREP, ShellScripts::GREP_SWAPTOTAL);
 	aux = result.split(" ", QString::SkipEmptyParts);
 	mem.append(aux.at(1) + aux.at(2));
 
 	//FREE SWAP
-        result = pro.execPippedShellProcess(ShellScripts::SS_CAT, ShellScripts::SS_CAT_MEMINFO, ShellScripts::SS_GREP, ShellScripts::SS_GREP_SWAPFREE);
+	result = pro.execPippedShellProcess(ShellScripts::CAT, ShellScripts::CAT_MEMINFO, ShellScripts::GREP, ShellScripts::GREP_SWAPFREE);
 	aux = result.split(" ", QString::SkipEmptyParts);
 	mem.append(aux.at(1) + aux.at(2));
 
