@@ -34,24 +34,17 @@ QString Distribution::name()
 //Return the version of the distribution in use
 QString Distribution::version()
 {
-	Process pro;
-
 	return pro.execShellProcess(ShellScripts::LSB_RELEASE, ShellScripts::LSB_RELEASE_VERSION);
 }
 
 //Return the codename of the distribution in use
 QString Distribution::codename()
 {
-	Process pro;
-
 	return pro.execShellProcess(ShellScripts::LSB_RELEASE, ShellScripts::LSB_RELEASE_CODENAME);
 }
 
 //Return the kernel version of the distribution in use
 QString Distribution::kernel()
 {
-	QString distroKernelString;
-	Process pro;
-
 	return pro.execShellProcess(ShellScripts::UNAME, ShellScripts::UNAME_KERNELVERSION);
 }

@@ -23,9 +23,8 @@ bool Process::isRunning(QString processName)
 
 QString Process::getShellCommand(QString idCommand, QString idParam = ShellScripts::SS_NO_PARAM){
     QString command;
-    ShellScripts shsc;
 
-	command = shsc.getCommand(idCommand, idParam);
+	command = this->shsc.getCommand(idCommand, idParam);
 
 	if (command.isEmpty() == false){
         this->setCom(true);
@@ -38,9 +37,8 @@ QString Process::getShellCommand(QString idCommand, QString idParam = ShellScrip
 
 QString Process::getPippedShellCommand(QString idCommand1, QString idParam1, QString idCommand2, QString idParam2){
 	QString command;
-	ShellScripts shsc;
 
-	command = shsc.getPippedCommand(idCommand1, idCommand2, idParam1, idParam2);
+	command = this->shsc.getPippedCommand(idCommand1, idCommand2, idParam1, idParam2);
 
 	if (command.isEmpty() == false){
 		this->setCom(true);

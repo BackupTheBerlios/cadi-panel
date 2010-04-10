@@ -5,6 +5,13 @@
 #include <QString>
 #include <QtXml>
 
+//! Returns shell scripts commands ready to be executed.
+/*!
+  This class is able to build a \c QString containing a shell command.
+  The commands are read from a \c xml file defined in its \c ficXml \c private member.
+  Provides functions to get one single commad or two pipped shell commands.
+  Declares the \c xml node names in <tt>static QString</tt> member variables.
+*/
 class ShellScripts{
 private:
 	QString ficXml;

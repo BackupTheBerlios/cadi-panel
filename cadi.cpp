@@ -32,9 +32,11 @@ void Cadi::changeEvent(QEvent *e)
 //Set the app by the current distro
 void Cadi::setByDistribution()
 {
-    generalModule->distroLogoButton->setIcon(QIcon(":/" + Distribution::name().toLower() + "-icon").pixmap(128, 128));
-    generalModule->distroNameLabel->setText("<h1>" + Distribution::name() + "</h1>" + " " + Distribution::version() + " " + Distribution::codename());
-    generalModule->kernelLabel->setText("<b>" + trUtf8("Linux Kernel") + "</b> " + Distribution::kernel());
+	Distribution dist;
+
+	generalModule->distroLogoButton->setIcon(QIcon(":/" + dist.name().toLower() + "-icon").pixmap(128, 128));
+	generalModule->distroNameLabel->setText("<h1>" + dist.name() + "</h1>" + " " + dist.version() + " " + dist.codename());
+	generalModule->kernelLabel->setText("<b>" + trUtf8("Linux Kernel") + "</b> " + dist.kernel());
 }
 
 //Set the app by the current desktop enviroment

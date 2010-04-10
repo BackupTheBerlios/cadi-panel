@@ -2,16 +2,19 @@
 #define DISTRIBUTION_H
 
 #include <QObject>
+#include "process.h"
 
 class Distribution : public QObject
 {
     Q_OBJECT
+private:
+	Process pro;
 public:
     Distribution();
-    static QString name();
-    static QString version();
-    static QString codename();
-    static QString kernel();
+	QString name();
+	QString version();
+	QString codename();
+	QString kernel();
 };
 
 #endif // DISTRIBUTION_H

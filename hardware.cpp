@@ -9,7 +9,6 @@ Hardware::Hardware()
 QStringList Hardware::processor()
 {
 	QStringList processors;
-	Process pro;
 
 	processors = pro.execPippedShellProcessList(ShellScripts::CAT, ShellScripts::CAT_CPUINFO, ShellScripts::GREP, ShellScripts::GREP_MODELNAME);
 
@@ -19,7 +18,6 @@ QStringList Hardware::processor()
 QStringList Hardware::memory(){
 	QString result;
 	QStringList mem, aux;
-	Process pro;
 
 	//TOTAL MEMORY
 	result = pro.execPippedShellProcess(ShellScripts::CAT, ShellScripts::CAT_MEMINFO, ShellScripts::GREP, ShellScripts::GREP_MEMTOTAL);
