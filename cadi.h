@@ -17,8 +17,9 @@
 #include "process.h"
 #include "hardware.h"
 #include "shellscripts.h"
-#include "build/ui_general.h"
-#include "build/ui_categories.h"
+#include "modules/general.h"
+#include "modules/categories.h"
+#include "modules/update.h"
 
 namespace Ui {
     class Cadi;
@@ -30,13 +31,15 @@ public:
     Cadi(QWidget *parent = 0);
     ~Cadi();
     Ui::Cadi *ui;
-    Ui::GeneralModule *generalModule;
-    Ui::CategoriesModule *categoriesModule;
+    GeneralModule *generalModule;
+    CategoriesModule *categoriesModule;
+    UpdateModule *updateModule;
 
 public slots:
-    void setByDistribution();
-    void setByDE();
     void setConnections();
+    void loadModules();
+    void loadModule(QWidget *module);
+    void loadModuleByListItem(QListWidgetItem *moduleItem);
     void changeView();
 
 protected:

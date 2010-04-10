@@ -18,14 +18,14 @@
     <number>0</number>
    </property>
    <item>
-    <widget class="QScrollArea" name="scrollArea">
+    <widget class="QScrollArea" name="categoriesWidget">
      <property name="frameShape">
       <enum>QFrame::NoFrame</enum>
      </property>
      <property name="widgetResizable">
       <bool>true</bool>
      </property>
-     <widget class="QWidget" name="categoriesWidget">
+     <widget class="QWidget" name="categoriesContent">
       <property name="geometry">
        <rect>
         <x>0</x>
@@ -95,8 +95,11 @@
              <property name="text">
               <string>Update</string>
              </property>
+             <property name="whatsThis">
+              <string notr="true">update</string>
+             </property>
              <property name="icon">
-              <iconset resource="../resources.qrc">
+              <iconset>
                <normaloff>:/icons/48x48/apps/system-software-update.png</normaloff>:/icons/48x48/apps/system-software-update.png</iconset>
              </property>
             </item>
@@ -104,8 +107,11 @@
              <property name="text">
               <string>Install</string>
              </property>
+             <property name="whatsThis">
+              <string notr="true">install</string>
+             </property>
              <property name="icon">
-              <iconset resource="../resources.qrc">
+              <iconset>
                <normaloff>:/icons/48x48/actions/list-add.png</normaloff>:/icons/48x48/actions/list-add.png</iconset>
              </property>
             </item>
@@ -113,8 +119,11 @@
              <property name="text">
               <string>Package Manager</string>
              </property>
+             <property name="whatsThis">
+              <string notr="true">packageManager</string>
+             </property>
              <property name="icon">
-              <iconset resource="../resources.qrc">
+              <iconset>
                <normaloff>:/icons/48x48/apps/preferences-desktop-default-applications.png</normaloff>:/icons/48x48/apps/preferences-desktop-default-applications.png</iconset>
              </property>
             </item>
@@ -180,11 +189,14 @@
              <property name="text">
               <string>CPU</string>
              </property>
+             <property name="whatsThis">
+              <string notr="true">CPU</string>
+             </property>
              <property name="textAlignment">
-              <set>AlignHCenter|AlignVCenter|AlignCenter</set>
+              <set>AlignLeft|AlignVCenter</set>
              </property>
              <property name="icon">
-              <iconset resource="../resources.qrc">
+              <iconset>
                <normaloff>:/icons/48x48/devices/cpu.png</normaloff>:/icons/48x48/devices/cpu.png</iconset>
              </property>
             </item>
@@ -192,8 +204,11 @@
              <property name="text">
               <string>Memory</string>
              </property>
+             <property name="whatsThis">
+              <string notr="true">memory</string>
+             </property>
              <property name="icon">
-              <iconset resource="../resources.qrc">
+              <iconset>
                <normaloff>:/icons/48x48/devices/memory.png</normaloff>:/icons/48x48/devices/memory.png</iconset>
              </property>
              <property name="flags">
@@ -218,8 +233,6 @@
    </item>
   </layout>
  </widget>
- <resources>
-  <include location="../resources.qrc"/>
- </resources>
+ <resources/>
  <connections/>
 </ui>

@@ -9,16 +9,23 @@ SOURCES += main.cpp \
     de.cpp \
     hardware.cpp \
     process.cpp \
-    shellscripts.cpp
+    shellscripts.cpp \
+    modules/general.cpp \
+    modules/categories.cpp \
+    modules/update.cpp
 HEADERS += cadi.h \
     distribution.h \
     de.h \
     hardware.h \
     process.h \
-    shellscripts.h
+    shellscripts.h \
+    modules/general.h \
+    modules/categories.h \
+    modules/update.h
 FORMS += cadi.ui \
+    modules/general.ui \
     modules/categories.ui \
-    modules/general.ui
+    modules/update.ui
 OBJECTS_DIR = build
 MOC_DIR = build
 RCC_DIR = build

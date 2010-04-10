@@ -25,7 +25,7 @@ QString ShellScripts::KILLALL = "KILLALL";
 //Public functions
 ShellScripts::ShellScripts(){
 	//XML file representing shell commands and arguments
-	this->ficXml = "data/shellscripts.xml";
+    this->ficXml = ":/data/shellscripts.xml";
 	//Required node names (shellscripts.xml file)
 	this->name = "name";
 	this->param = "par";
