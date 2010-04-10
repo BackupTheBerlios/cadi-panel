@@ -37,11 +37,8 @@ ShellScripts::ShellScripts(){
 	}
 }
 
-ShellScripts::~ShellScripts(){
-}
-
 //Gets a shell command (name + arguments) from the shellscripts.xml file
-QString ShellScripts::getCommand(QString idNode, QString idParam){
+QString ShellScripts::getCommand(QString idCommand, QString idParam){
     QString command;
 	QDomNodeList nl;
 	QDomNode n, a;
@@ -50,8 +47,8 @@ QString ShellScripts::getCommand(QString idNode, QString idParam){
 	QTextStream out(stdout);
 
 	//Get the command node
-	if (idNode.isNull() == false && idNode.isEmpty() == false){
-		nl = this->doc.elementsByTagName(idNode);
+	if (idCommand.isNull() == false && idCommand.isEmpty() == false){
+		nl = this->doc.elementsByTagName(idCommand);
 		if (nl.isEmpty() == false){
 			n = nl.item(0);
 		}
