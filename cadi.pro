@@ -7,25 +7,29 @@ SOURCES += main.cpp \
     cadi.cpp \
     distribution.cpp \
     de.cpp \
-    hardware.cpp \
     process.cpp \
     shellscripts.cpp \
     modules/general.cpp \
     modules/categories.cpp \
-    modules/update.cpp
+    modules/update.cpp \
+    modules/hardwareCPU.cpp \
+    modules/hardwareMEM.cpp
 HEADERS += cadi.h \
     distribution.h \
     de.h \
-    hardware.h \
     process.h \
     shellscripts.h \
     modules/general.h \
     modules/categories.h \
-    modules/update.h
+    modules/update.h \
+    modules/hardwareCPU.h \
+    modules/hardwareMEM.h
 FORMS += cadi.ui \
     modules/general.ui \
     modules/categories.ui \
-    modules/update.ui
+    modules/update.ui \
+    modules/hardwareCPU.ui \
+    modules/hardwareMEM.ui
 OBJECTS_DIR = build
 MOC_DIR = build
 RCC_DIR = build

@@ -20,6 +20,8 @@ QString ShellScripts::PSTREE_UTF8 = "PSTREE_UTF8";
 QString ShellScripts::UNAME = "UNAME";
 QString ShellScripts::UNAME_KERNELVERSION = "UNAME_KERNELVERSION";
 QString ShellScripts::KILLALL = "KILLALL";
+QString ShellScripts::FREE = "FREE";
+QString ShellScripts::FREE_MEGALOWTOTAL = "FREE_MEGALOWTOTAL";
 
 
 //Public functions

@@ -41,6 +41,8 @@ void Cadi::loadModules()
     generalModule = new GeneralModule;
     categoriesModule = new CategoriesModule;
     updateModule = new UpdateModule;
+	hardwareCPUModule = new HardwareCPUModule;
+	hardwareMEMModule = new HardwareMEMModule;
 }
 
 void Cadi::loadModule(QWidget *module)
@@ -66,6 +68,12 @@ void Cadi::loadModuleByListItem(QListWidgetItem *moduleItem)
     {
         loadModule(updateModule);
     }
+	if (moduleItem->text().compare("CPU") == 0){
+		loadModule(hardwareCPUModule);
+	}
+	if (moduleItem->text().compare("Memory") == 0){
+		loadModule(hardwareMEMModule);
+	}
 }
 
 void Cadi::changeView()
@@ -89,3 +97,4 @@ void Cadi::changeView()
         ui->centralWidget->layout()->addWidget(categoriesModule->scrollArea);*/
     }
 }
+

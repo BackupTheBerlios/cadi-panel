@@ -15,11 +15,12 @@
 #include "distribution.h"
 #include "de.h"
 #include "process.h"
-#include "hardware.h"
 #include "shellscripts.h"
 #include "modules/general.h"
 #include "modules/categories.h"
 #include "modules/update.h"
+#include "modules/hardwareCPU.h"
+#include "modules/hardwareMEM.h"
 
 namespace Ui {
     class Cadi;
@@ -34,6 +35,9 @@ public:
     GeneralModule *generalModule;
     CategoriesModule *categoriesModule;
     UpdateModule *updateModule;
+	HardwareCPUModule *hardwareCPUModule;
+	HardwareMEMModule *hardwareMEMModule;
+
 
 public slots:
     void setConnections();

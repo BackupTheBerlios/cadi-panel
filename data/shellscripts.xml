@@ -26,33 +26,40 @@ Where:
 ##################################################################################################
 -->
 <ShellScripts>
-  <LSB_RELEASE>
-    <name>lsb_release</name>
-    <par name="LSB_RELEASE_VERSION">-s -r</par>
-    <par name="LSB_RELEASE_CODENAME">-s -c</par>
-  </LSB_RELEASE>
-  <GREP>
-    <name>grep</name>
-    <par name="GREP_MODELNAME">'model name'</par>
-    <par name="GREP_MEMTOTAL">'MemTotal'</par>
-    <par name="GREP_MEMFREE">'MemFree'</par>
-    <par name="GREP_SWAPTOTAL">'SwapTotal'</par>
-    <par name="GREP_SWAPFREE">'SwapFree'</par>
-  </GREP>
-  <CAT>
-    <name>cat</name>
-    <par name="CAT_CPUINFO">/proc/cpuinfo</par>
-    <par name="CAT_MEMINFO">/proc/meminfo</par>
-  </CAT>
-  <PSTREE>
-    <name>pstree</name>
-    <par name="PSTREE_UTF8">-U</par>
-  </PSTREE>
-  <UNAME>
-    <name>uname</name>
-    <par name="UNAME_KERNELVERSION">-rm</par>
-  </UNAME>
-  <KILLALL>
-  		<name>killall</name>
-  </KILLALL>
+	<LSB_RELEASE>
+		<name>lsb_release</name>
+		<par name="LSB_RELEASE_VERSION">-s -r</par>
+		<par name="LSB_RELEASE_CODENAME">-s -c</par>
+	</LSB_RELEASE>
+	<GREP>
+		<name>grep</name>
+		<par name="GREP_MODELNAME">'model name'</par>
+		<par name="GREP_MEMTOTAL">'MemTotal'</par>
+		<par name="GREP_MEMFREE">'MemFree'</par>
+		<par name="GREP_SWAPTOTAL">'SwapTotal'</par>
+		<par name="GREP_SWAPFREE">'SwapFree'</par>
+	</GREP>
+	<CAT>
+		<name>cat</name>
+		<par name="CAT_CPUINFO">/proc/cpuinfo</par>
+		<par name="CAT_MEMINFO">/proc/meminfo</par>
+	</CAT>
+	<PSTREE>
+		<name>pstree</name>
+		<par name="PSTREE_UTF8">-U</par>
+	</PSTREE>
+	<UNAME>
+		<name>uname</name>
+		<par name="UNAME_KERNELVERSION">-rm</par>
+	</UNAME>
+	<KILLALL>
+		<name>killall</name>
+	</KILLALL>
+	<FREE>
+		<name>free</name>
+		<par name="FREE_MEGALOWTOTAL">-mlt</par>
+		<par name="FREE_KILOLOWTOTAL">-klt</par>
+		<par name="FREE_GIGALOWTOTAL">-glt</par>
+		<par name="FREE_BYTELOWTOTAL">-blt</par>
+	</FREE>
 </ShellScripts>

@@ -48,6 +48,8 @@ public:
 	static QString UNAME;										/*!< <tt>uname</tt> shell command */
 	static QString UNAME_KERNELVERSION;							/*!< <tt>-rm</tt> argument from \c uname shell command */
 	static QString KILLALL;										/*!< <tt>killall</tt> shell command */
+	static QString FREE;										/*!< <tt>free</tt> shell command */
+	static QString FREE_MEGALOWTOTAL;							/*!< <tt>-mlt</tt> arguments from \c free shell command */
 	/** @} */ //End of staticNodeNames doxygen group
 
 	//! Initializes variables and \c DOM document.
