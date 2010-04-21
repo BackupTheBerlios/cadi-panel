@@ -67,11 +67,14 @@
               <verstretch>0</verstretch>
              </sizepolicy>
             </property>
+            <property name="styleSheet">
+             <string notr="true"/>
+            </property>
             <property name="frameShape">
              <enum>QFrame::NoFrame</enum>
             </property>
             <property name="frameShadow">
-             <enum>QFrame::Sunken</enum>
+             <enum>QFrame::Plain</enum>
             </property>
             <property name="isWrapping" stdset="0">
              <bool>true</bool>
@@ -166,6 +169,9 @@
               <horstretch>0</horstretch>
               <verstretch>0</verstretch>
              </sizepolicy>
+            </property>
+            <property name="whatsThis">
+             <string/>
             </property>
             <property name="frameShape">
              <enum>QFrame::NoFrame</enum>

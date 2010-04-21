@@ -39,7 +39,7 @@ QStandardItemModel* HardwareCPUModule::processor()
 		QStringList::const_iterator it;
 		int i = 0;
 		for (i = 0, it = filt.constBegin(); it != filt.constEnd(); ++i, ++it){
-			//Nivel 0: procesador
+                        //Nivel 0: processor
 			itemRoot = new QStandardItem(QIcon(":/icons/48x48/devices/cpu.png").pixmap(32, 32), trUtf8("Processor ") + QString::number(i));
 			parentItem->appendRow(itemRoot);
 

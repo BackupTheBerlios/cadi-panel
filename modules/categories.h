@@ -2,6 +2,7 @@
 #define CATEGORIES_H
 
 #include <QWidget>
+#include <QStyleOption>
 
 #include "ui_categories.h"
 
