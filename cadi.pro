@@ -13,7 +13,8 @@ SOURCES += main.cpp \
     modules/categories.cpp \
     modules/update.cpp \
     modules/hardwareCPU.cpp \
-    modules/hardwareMEM.cpp
+    modules/hardwareMEM.cpp \
+    data/db.cpp
 HEADERS += cadi.h \
     distribution.h \
     de.h \
@@ -23,7 +24,8 @@ HEADERS += cadi.h \
     modules/categories.h \
     modules/update.h \
     modules/hardwareCPU.h \
-    modules/hardwareMEM.h
+    modules/hardwareMEM.h \
+    data/db.h
 FORMS += cadi.ui \
     modules/general.ui \
     modules/categories.ui \
@@ -35,4 +37,5 @@ MOC_DIR = build
 RCC_DIR = build
 UI_DIR = build
 RESOURCES += resources.qrc
-QT += xml
+QT += xml \
+    sql

@@ -1,5 +1,6 @@
 #include "cadi.h"
 #include "hardwareCPU.h"
+#include "data/db.h"
 
 HardwareCPUModule::HardwareCPUModule(QWidget *parent) :
 	QWidget(parent)
@@ -28,10 +29,20 @@ QStandardItemModel* HardwareCPUModule::processor()
 	QStringList filt, auxList, auxLi2;
 	QString aux;
 	Process pro;
+	QList<QSqlRecord> ql;
+
+	ql = Cadi::db->prueba();
+	if (ql.size() > 0){
+		qDebug() << ql.at(0).value(1).toString() << endl;
+	} else {
+		qDebug() << QString("no result") << endl;
+	}
+
+	ql = Cadi::db->execSql("SELECT val1, val2, val3, val4 FROM HardwareCPUModule_processor");
 
 	processors = pro.execPippedShellProcessList(ShellScripts::CAT, ShellScripts::CAT_CPUINFO, ShellScripts::GREP, ShellScripts::GREP_MODELNAME);
 
-	filt = processors.filter("processor", Qt::CaseSensitive);
+	filt = processors.filter(ql.at(0).value(0).toString(), Qt::CaseSensitive);
 
 	if (filt.size() > 0){
 		QStandardItem *parentItem = model->invisibleRootItem();

@@ -1,11 +1,12 @@
 #include "cadi.h"
 
+DB *Cadi::db = new DB();
+
 Cadi::Cadi(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::Cadi)
 {
-    Process pro;
-    ui->setupUi(this);
+	ui->setupUi(this);
     loadModules();
     loadModule(categoriesModule->categoriesWidget);
     setConnections();
@@ -13,6 +14,7 @@ Cadi::Cadi(QWidget *parent) :
 
 Cadi::~Cadi()
 {
+	Cadi::db->releaseDB();
     delete ui;
 }
 

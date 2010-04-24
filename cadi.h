@@ -21,6 +21,7 @@
 #include "modules/update.h"
 #include "modules/hardwareCPU.h"
 #include "modules/hardwareMEM.h"
+#include "data/db.h"
 
 namespace Ui {
     class Cadi;
@@ -37,6 +38,7 @@ public:
     UpdateModule *updateModule;
 	HardwareCPUModule *hardwareCPUModule;
 	HardwareMEMModule *hardwareMEMModule;
+	static DB *db;
 
 
 public slots:
