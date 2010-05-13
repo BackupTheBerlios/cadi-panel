@@ -29,20 +29,13 @@ QStandardItemModel* HardwareCPUModule::processor()
 	QStringList filt, auxList, auxLi2;
 	QString aux;
 	Process pro;
-	QList<QSqlRecord> ql;
+	Result *res = Cadi::db->getConnection("SELECT val1, val2, val3, val4 FROM HardwareCPUModule_processor");
 
-	ql = Cadi::db->prueba();
-	if (ql.size() > 0){
-		qDebug() << ql.at(0).value(1).toString() << endl;
-	} else {
-		qDebug() << QString("no result") << endl;
-	}
-
-	ql = Cadi::db->execSql("SELECT val1, val2, val3, val4 FROM HardwareCPUModule_processor");
+	res->execSql();
 
 	processors = pro.execPippedShellProcessList(ShellScripts::CAT, ShellScripts::CAT_CPUINFO, ShellScripts::GREP, ShellScripts::GREP_MODELNAME);
 
-	filt = processors.filter(ql.at(0).value(0).toString(), Qt::CaseSensitive);
+	filt = processors.filter(res->get(0, 0), Qt::CaseSensitive);
 
 	if (filt.size() > 0){
 		QStandardItem *parentItem = model->invisibleRootItem();
@@ -50,57 +43,57 @@ QStandardItemModel* HardwareCPUModule::processor()
 		QStringList::const_iterator it;
 		int i = 0;
 		for (i = 0, it = filt.constBegin(); it != filt.constEnd(); ++i, ++it){
-                        //Nivel 0: processor
-			itemRoot = new QStandardItem(QIcon(":/icons/48x48/devices/cpu.png").pixmap(32, 32), trUtf8("Processor ") + QString::number(i));
+			//Nivel 0: processor
+			itemRoot = new QStandardItem(QIcon(res->get(1, "val1")).pixmap(32, 32), trUtf8(res->get(1, "val2").toStdString().c_str()) + QString::number(i + 1));
 			parentItem->appendRow(itemRoot);
 
-			auxList = processors.filter("model name", Qt::CaseSensitive);
+			auxList = processors.filter(res->get(2, "val1"), Qt::CaseSensitive);
 			if (auxList.size() > 0){
 				aux = auxList.at(i).right(auxList.at(i).length() - auxList.at(i).indexOf(":") - 2).trimmed();
 				item = new QStandardItem(aux);
 				itemRoot->appendRow(item);
 			}
 
-			auxList = processors.filter("vendor_id", Qt::CaseSensitive);
+			auxList = processors.filter(res->get(3, "val1"), Qt::CaseSensitive);
 			if (auxList.size() > 0){
 				aux = auxList.at(i).right(auxList.at(i).length() - auxList.at(i).indexOf(":") - 2).trimmed();
-				stdItem = new QStandardItem(trUtf8("Vendor: ") + aux);
+				stdItem = new QStandardItem(trUtf8(res->get(3, "val2").toStdString().c_str()) + aux);
 				item->appendRow(stdItem);
 			}
 
-			auxList = processors.filter("cpu family", Qt::CaseSensitive);
+			auxList = processors.filter(res->get(4, "val1"), Qt::CaseSensitive);
 			if (auxList.size() > 0){
 				aux = auxList.at(i).right(auxList.at(i).length() - auxList.at(i).indexOf(":") - 2).trimmed();
-				stdItem = new QStandardItem(trUtf8("Family: ") + aux);
+				stdItem = new QStandardItem(trUtf8(res->get(4, "val2").toStdString().c_str()) + aux);
 				item->appendRow(stdItem);
 			}
 
-			auxList = processors.filter("model", Qt::CaseSensitive);
+			auxList = processors.filter(res->get(5, "val1"), Qt::CaseSensitive);
 			if (auxList.size() > 0){
-				if (auxList.at(i).startsWith("model name") == true){
+				if (auxList.at(i).startsWith(res->get(5, "val2")) == true){
 					aux = auxList.at(i + 1).right(auxList.at(i + 1).length() - auxList.at(i + 1).indexOf(":") - 1).trimmed();
 				} else {
 					aux = auxList.at(i).right(auxList.at(i).length() - auxList.at(i).indexOf(":") - 2).trimmed();
 				}
-				stdItem = new QStandardItem(trUtf8("Model: ") + aux);
+				stdItem = new QStandardItem(trUtf8(res->get(5, "val3").toStdString().c_str()) + aux);
 				item->appendRow(stdItem);
 			}
 
-			auxList = processors.filter("stepping", Qt::CaseSensitive);
+			auxList = processors.filter(res->get(6, "val1"), Qt::CaseSensitive);
 			if (auxList.size() > 0){
 				aux = auxList.at(i).right(auxList.at(i).length() - auxList.at(i).indexOf(":") - 2).trimmed();
-				stdItem = new QStandardItem(trUtf8("Revision: ") + aux);
+				stdItem = new QStandardItem(trUtf8(res->get(6, "val2").toStdString().c_str()) + aux);
 				item->appendRow(stdItem);
 			}
 
-			auxList = processors.filter("cpu MHz", Qt::CaseSensitive);
+			auxList = processors.filter(res->get(7, "val1"), Qt::CaseSensitive);
 			if (auxList.size() > 0){
 				aux = auxList.at(i).right(auxList.at(i).length() - auxList.at(i).indexOf(":") - 2).trimmed() + " MHz";
-				auxLi2 = processors.filter("bogomips", Qt::CaseSensitive);
+				auxLi2 = processors.filter(res->get(7, "val2"), Qt::CaseSensitive);
 				if (auxLi2.size() > 0){
-					aux += " - Bogomips: " + auxLi2.at(i).right(auxLi2.at(i).length() - auxLi2.at(i).indexOf(":") - 2).trimmed();
+					aux += res->get(7, "val3") + auxLi2.at(i).right(auxLi2.at(i).length() - auxLi2.at(i).indexOf(":") - 2).trimmed();
 				}
-				stdItem = new QStandardItem(trUtf8("Frequency: ") + aux);
+				stdItem = new QStandardItem(trUtf8(res->get(7, "val4").toStdString().c_str()) + aux);
 				itemRoot->appendRow(stdItem);
 			}
 		}

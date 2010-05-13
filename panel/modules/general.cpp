@@ -25,7 +25,7 @@ void GeneralModule::changeEvent(QEvent *e)
 void GeneralModule::setByDistribution()
 {
         Distribution dist;
-        distroLogoButton->setIcon(QIcon(":/" + dist.name().toLower() + "-icon").pixmap(128, 128));
+		distroLogoButton->setIcon(QIcon(":/resources/distributions/" + dist.name().toLower() + "-icon.png").pixmap(128, 128));
         distroNameLabel->setText("<h1>" + dist.name() + "</h1>" + " " + dist.version() + " " + dist.codename());
         kernelLabel->setText("<b>" + trUtf8("Linux Kernel") + "</b> " + dist.kernel());
 }

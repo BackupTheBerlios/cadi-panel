@@ -102,8 +102,8 @@
               <string notr="true">update</string>
              </property>
              <property name="icon">
-              <iconset>
-               <normaloff>:/icons/48x48/apps/system-software-update.png</normaloff>:/icons/48x48/apps/system-software-update.png</iconset>
+              <iconset resource="../resources.qrc">
+               <normaloff>:/resources/icons/48x48/apps/system-software-update.png</normaloff>:/resources/icons/48x48/apps/system-software-update.png</iconset>
              </property>
             </item>
             <item>
@@ -114,8 +114,8 @@
               <string notr="true">install</string>
              </property>
              <property name="icon">
-              <iconset>
-               <normaloff>:/icons/48x48/actions/list-add.png</normaloff>:/icons/48x48/actions/list-add.png</iconset>
+              <iconset resource="../resources.qrc">
+               <normaloff>:/resources/icons/48x48/actions/list-add.png</normaloff>:/resources/icons/48x48/actions/list-add.png</iconset>
              </property>
             </item>
             <item>
@@ -126,8 +126,8 @@
               <string notr="true">packageManager</string>
              </property>
              <property name="icon">
-              <iconset>
-               <normaloff>:/icons/48x48/apps/preferences-desktop-default-applications.png</normaloff>:/icons/48x48/apps/preferences-desktop-default-applications.png</iconset>
+              <iconset resource="../resources.qrc">
+               <normaloff>:/resources/icons/48x48/apps/preferences-desktop-default-applications.png</normaloff>:/resources/icons/48x48/apps/preferences-desktop-default-applications.png</iconset>
              </property>
             </item>
            </widget>
@@ -199,11 +199,11 @@
               <string notr="true">CPU</string>
              </property>
              <property name="textAlignment">
-              <set>AlignLeft|AlignVCenter</set>
+              <set>AlignHCenter|AlignVCenter|AlignCenter</set>
              </property>
              <property name="icon">
-              <iconset>
-               <normaloff>:/icons/48x48/devices/cpu.png</normaloff>:/icons/48x48/devices/cpu.png</iconset>
+              <iconset resource="../resources.qrc">
+               <normaloff>:/resources/icons/48x48/devices/cpu.png</normaloff>:/resources/icons/48x48/devices/cpu.png</iconset>
              </property>
             </item>
             <item>
@@ -214,8 +214,8 @@
               <string notr="true">memory</string>
              </property>
              <property name="icon">
-              <iconset>
-               <normaloff>:/icons/48x48/devices/memory.png</normaloff>:/icons/48x48/devices/memory.png</iconset>
+              <iconset resource="../resources.qrc">
+               <normaloff>:/resources/icons/48x48/devices/memory.png</normaloff>:/resources/icons/48x48/devices/memory.png</iconset>
              </property>
              <property name="flags">
               <set>ItemIsSelectable|ItemIsUserCheckable|ItemIsEnabled</set>
@@ -239,6 +239,8 @@
    </item>
   </layout>
  </widget>
- <resources/>
+ <resources>
+  <include location="../resources.qrc"/>
+ </resources>
  <connections/>
 </ui>

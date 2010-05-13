@@ -1,4 +1,5 @@
 #include "shellscripts.h"
+#include "cadi.h"
 
 //DEFINE STATIC VARIABLES
 QString ShellScripts::SS_NO_PARAM = "";
@@ -26,80 +27,28 @@ QString ShellScripts::FREE_MEGALOWTOTAL = "FREE_MEGALOWTOTAL";
 
 //Public functions
 ShellScripts::ShellScripts(){
-	//XML file representing shell commands and arguments
-    this->ficXml = "../common/shellscripts.xml";
-	//Required node names (shellscripts.xml file)
-	this->name = "name";
-	this->param = "par";
-	//Open shellscripts.xml file and create DOM document
-	QFile fic(ficXml);
-	if (fic.open(QIODevice::ReadOnly) == true){
-		this->doc.setContent(&fic);
-		fic.close();
-	}
 }
 
 //Gets a shell command (name + arguments) from the shellscripts.xml file
 QString ShellScripts::getCommand(QString idCommand, QString idParam){
-    QString command;
-	QDomNodeList nl;
-	QDomNode n, a;
-	QDomElement e;
-	QDomText t;
-	QTextStream out(stdout);
+	QString com;
+	Result *res = Cadi::db->getConnection("SELECT command FROM ShellScripts_commands WHERE name = '" + idCommand + "'");
 
-	//Get the command node
+	//Get the command
 	if (idCommand.isNull() == false && idCommand.isEmpty() == false){
-		nl = this->doc.elementsByTagName(idCommand);
-		if (nl.isEmpty() == false){
-			n = nl.item(0);
+		res->execSql();
+		if (res->size() > 0){
+			com = res->get(0, 0);
 		}
-
-		//Get the command name
-		if (n.isNull() == false){
-			//Get the node elements
-			e = n.toElement();
-			if (e.isNull() == false){
-				//Get the "name" node
-				nl = e.elementsByTagName(this->name);
-				if (nl.isEmpty() == false){
-					n = nl.item(0);
-					//Get the value of the node
-					command += n.firstChild().nodeValue();
-				}
+		if (idParam.isNull() == false && idParam != "" && idParam.compare(ShellScripts::SS_NO_PARAM) != 0){
+			res->execSql("SELECT param FROM ShellScripts_Params WHERE name = '" + idParam + "'");
+			if (res->size() > 0){
+				com += " " + res->get(0, 0);
 			}
 		}
 	}
 
-	//Get the param
-	if (command.isEmpty() == false && idParam.isNull() == false && idParam.isEmpty() == false){
-		if (e.isNull() == false){
-			//Get the "params" nodes
-			nl = e.elementsByTagName(this->param);
-			if (nl.isEmpty() == false){
-				for (int i = 0; i < nl.count(); ++i){
-					n = nl.item(i);
-					if (n.isNull() == false){
-						//Get the "name" attribute
-						if (n.hasAttributes() == true){
-							e = n.toElement();
-							QString atrName = e.attribute(this->name);
-							//is it the wanted param?
-							if (atrName.compare(idParam) == 0){
-								//Get the value of the node
-								if (n.firstChild().isText() == true){
-									command += " " + n.firstChild().nodeValue();
-									break;
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-	}
-
-    return command;
+	return com;
 }
 
 //Gets two shell commands and pipes them

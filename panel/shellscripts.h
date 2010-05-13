@@ -3,7 +3,6 @@
 
 #include <QObject>
 #include <QString>
-#include <QtXml>
 
 //! Returns shell scripts commands ready to be executed.
 /*!
@@ -13,20 +12,10 @@
   Declares the \c xml node names in <tt>static QString</tt> member variables.
 */
 class ShellScripts{
-private:
-	//! Holds the path to the \c xml file which contains the commands definitions
-	QString ficXml;
-	//! The name of the nodes containing the name of the command; also the name of the attribute containing the name of the arguments.
-	QString name;
-	//! The name of the nodes containing the command's arguments.
-	QString param;
-	//! Holds the \c DOM document representing the \c xml file.
-	QDomDocument doc;
-
 public:
 
-	/** @defgroup staticNodeNames Static variables containing xml node names.
-	 *  This are <tt>public static Qstring</tt> which holds the node names which contains the nodes definning commands: name and arguments (if needed).
+	/** @defgroup staticNodeNames Static variables containing command and param ids.
+	 *  This are <tt>public static Qstring</tt> which holds the node names which contains the ids definning commands: name and arguments (if needed).
 	 *  @{
 	 */
 	static QString SS_NO_PARAM;									/*!< Use it to get a command with no arguments */
@@ -52,15 +41,10 @@ public:
 	static QString FREE_MEGALOWTOTAL;							/*!< <tt>-mlt</tt> arguments from \c free shell command */
 	/** @} */ //End of staticNodeNames doxygen group
 
-	//! Initializes variables and \c DOM document.
-	/*!	Sets \c xml path and \c Node names initialization: \c ficXml, \c name and \c param.
-		Opens and closes the \c xml file.
-		Sets content to \c DOM document.
-	*/
 	ShellScripts();
 
 	//! Gets a shell command.
-	/*!	Gets a QString representing a shell command defined in the \c xml file by \c idCommand and \c idParam.
+	/*!	Gets a QString representing a shell command identified in the database by \c idCommand and \c idParam.
 		@param idCommand The command id.
 		@param idParam The command arguments id. The default vaule is <tt>ShellScripts::SS_NO_PARAM</tt>.
 		@returns A \c QString representing the shell command.
